@@ -31,6 +31,11 @@
     </dependencyManagement>
     <dependencies>
         <dependency>
+            <groupId>org.apache.clerezza.signal</groupId>
+            <artifactId>clerezza-signal</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
             <groupId>org.apache.clerezza</groupId>
             <artifactId>api</artifactId>
             <version>2.0.1-SNAPSHOT</version>
