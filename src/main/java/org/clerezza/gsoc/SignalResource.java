@@ -6,7 +6,10 @@ import org.apache.clerezza.signal.graph.SignalGraph;
 import org.clerezza.gsoc.util.FileUtils;
 
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
 import java.io.IOException;
 
 @Path( "/signal/messages" )
@@ -17,11 +20,12 @@ public class SignalResource {
     public static String filename = System.getProperty( "user.dir" ) + "/signal.ttl";
 
     @POST
-    public void saveMessage( String data ) throws IOException {
+    public Response saveMessage( String data, @Context UriInfo uriInfo ) throws IOException {
         var json = new ObjectMapper().readValue( data, ObjectNode.class );
         FileUtils.createFileIfNotExist( filename );
         SignalGraph.buildGraph( json, filename );
 
+        return Response.created( uriInfo.getAbsolutePathBuilder().build() ).build();
     }
 
     @GET
